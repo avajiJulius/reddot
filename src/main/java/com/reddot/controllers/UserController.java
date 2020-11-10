@@ -3,15 +3,21 @@ package com.reddot.controllers;
 import com.reddot.entities.User;
 import com.reddot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.reddot.repositories.specifications.UserSpecification.*;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
+    private static final Integer INITIAL_PAGE = 0;
+    private static final Integer PAGE_SIZE = 10;
 
     private final UserService userService;
 
@@ -21,12 +27,42 @@ public class UserController {
     }
 
 
-    @GetMapping()
-    public String getUsers(Model model) {
-        List<User> userList = userService.findAllUsers();
+    @GetMapping("/")
+    public String showUsers(Model model) {
+        List<User> userList = userService.findAllActivatedUsers();
+
         model.addAttribute("userList", userList);
-        return "users/users";
+        return "users/home";
     }
+
+    @GetMapping("/search")
+    public String search(Model model,
+                         @RequestParam(name = "keyword", required = false) String keyword) {
+        Specification<User> specification = Specification.where(usernameContains(keyword))
+                .or(firstNameContains(keyword)).or(lastNameContains(keyword));
+        List<User> userList = userService.search(specification);
+
+        model.addAttribute("userList", userList);
+
+        return "users/home";
+    }
+
+//    @GetMapping("/page/{page}")
+//    public String searchForUsers(Model model,
+//                           @PathVariable(name = "page") Optional<Integer> page,
+//                           @Param("keyword") String keyword) {
+//
+//        final int currentPage = (page.orElse(0) < 1 ) ? INITIAL_PAGE : page.get() - 1;
+//
+//
+//
+//        List<User> result = users.getContent();
+//        model.addAttribute("userList", result);
+//        model.addAttribute("page", currentPage);
+//        model.addAttribute("totalPages", users.getTotalPages());
+//
+//        return "users/users";
+//    }
 
     @GetMapping("/new")
     public String showUserForm(@ModelAttribute("usr") User user) {
@@ -38,19 +74,9 @@ public class UserController {
         user.setStatus("online");
         user.setActivated(true);
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/users/";
     }
 
-
-    @GetMapping("/{id}")
-    public String getUserForEdit(@PathVariable(name = "id")Long id,
-                                  Model model) {
-        List<User> userList = null;
-        User user = userService.findById(id);
-        userList.add(user);
-        model.addAttribute("userList", userList);
-        return "users";
-    }
 
     @GetMapping("/{id}/edit")
     public String showUserEditForm(Model model, @PathVariable(name = "id") Long id) {
@@ -64,13 +90,13 @@ public class UserController {
         userEdit.setStatus("online");
         userEdit.setActivated(true);
         userService.updateUser(id, userEdit);
-        return "redirect:/users";
+        return "redirect:/users/";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/users";
+        return "redirect:/users/";
     }
 
 }

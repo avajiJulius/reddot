@@ -4,8 +4,12 @@ import com.reddot.entities.User;
 import com.reddot.exceprions.UserNotFoundException;
 import com.reddot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,9 +23,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return repository.findAll();
+    public List<User> findAllActivatedUsers() {
+        return repository.findByIsActivatedTrue();
     }
+
+    @Override
+    public List<User> findAllUsers() {
+        List<User> result = new ArrayList<>();
+        repository.findAll().forEach(result::add);
+
+        return result;
+    }
+
+    @Override
+    public List<User> search(Specification<User> specification) {
+        return repository.findAll(specification);
+    }
+
+    @Override
+    public Page<User> findUsersWithPagingAndFiltering(int pageNumber, int pageSize, Specification<User> specification) {
+        return repository.findAll(specification, PageRequest.of(pageNumber, pageSize));
+    }
+
 
     @Override
     public User findById(Long id) {
@@ -50,5 +73,6 @@ public class UserServiceImpl implements UserService {
         result.setDateOfBirth(user.getDateOfBirth());
         repository.save(user);
     }
+
 
 }

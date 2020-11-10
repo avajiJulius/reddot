@@ -31,6 +31,17 @@ public class User {
     @Column(name = "activated")
     private boolean isActivated;
 
+    public User(Long id, String username, String firstName, String lastName,
+                LocalDate dateOfBirth, String status, boolean isActivated) {
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.status = status;
+        this.isActivated = isActivated;
+    }
+
     public Long getId() {
         return id;
     }
