@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "usrs")
-public class User {
+public class User implements SearchWrapper{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -110,5 +110,10 @@ public class User {
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+    }
+
+    @Override
+    public String getSearchParam() {
+        return username;
     }
 }

@@ -4,6 +4,7 @@ import com.reddot.entities.Article;
 import com.reddot.exceprions.ArticleNotFoundException;
 import com.reddot.repositories.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     public ArticleServiceImpl(ArticleRepository repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public List<Article> search(Specification<Article> specification) {
+        return repository.findAll(specification);
     }
 
     @Override

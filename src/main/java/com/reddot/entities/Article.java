@@ -1,14 +1,13 @@
 package com.reddot.entities;
 
 
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "articles")
-public class Article {
+public class Article implements SearchWrapper{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -18,6 +17,8 @@ public class Article {
     private String title;
     @Column(name = "text")
     private String text;
+    @Column(name = "image")
+    private String image;
     @Column(name = "upload_date")
     private LocalDate uploadDate;
     @Column(name = "update_date")
@@ -90,5 +91,10 @@ public class Article {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    @Override
+    public String getSearchParam() {
+        return title;
     }
 }
