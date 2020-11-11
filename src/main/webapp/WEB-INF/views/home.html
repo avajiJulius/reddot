@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Home Page</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar.html :: navigation"></nav>
+<div class="row">
+    <div class="col-sm-3" th:each="article : ${articleList}">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${article.title}" />
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${article.uploadDate}"/>
+                <p class="card-text" th:text="${article.text}" />
+                <a th:href="@{/articles/{id}(id=${article.articleId})}" class="card-link">Read</a>
+                <a th:href="@{/users/{id}(id=${article.author.id})}" th:text="${article.authorName}" class="card-link" />
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="fragments/script.html :: jquery"></script>
+<script th:replace="fragments/script.html :: popper"></script>
+<script th:replace="fragments/script.html :: bootstrap"></script>
+</body>
+</html>

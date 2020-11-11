@@ -29,6 +29,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Article findArticle(Long id) {
+        return repository.getOne(id);
+    }
+
+    @Override
     public Article findArticleById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Not found article by ID " + id));
     }

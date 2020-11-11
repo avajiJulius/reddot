@@ -35,6 +35,14 @@ public class UserController {
         return "users/home";
     }
 
+    @GetMapping("/{id}")
+    public String showUser(Model model,
+                           @PathVariable(name = "id") Long id) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "users/user";
+    }
+
     @GetMapping("/search")
     public String search(Model model,
                          @RequestParam(name = "keyword", required = false) String keyword) {
