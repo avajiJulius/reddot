@@ -1,14 +1,13 @@
 package com.reddot.entities;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Table(name = "usrs")
 public class User {
 
@@ -31,6 +30,9 @@ public class User {
     @Column(name = "activated")
     private boolean isActivated;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Article> articles;
+
     public User(Long id, String username, String firstName, String lastName,
                 LocalDate dateOfBirth, String status, boolean isActivated) {
         this.id = id;
@@ -40,6 +42,10 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = status;
         this.isActivated = isActivated;
+    }
+
+    public User() {
+
     }
 
     public Long getId() {
@@ -96,5 +102,13 @@ public class User {
 
     public void setActivated(boolean activated) {
         isActivated = activated;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 }

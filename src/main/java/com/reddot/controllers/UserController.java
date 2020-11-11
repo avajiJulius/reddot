@@ -39,7 +39,7 @@ public class UserController {
     public String search(Model model,
                          @RequestParam(name = "keyword", required = false) String keyword) {
         Specification<User> specification = Specification.where(usernameContains(keyword))
-                .or(firstNameContains(keyword)).or(lastNameContains(keyword));
+                .or(firstNameContains(keyword)).or(lastNameContains(keyword)).and(activatedContains(true));
         List<User> userList = userService.search(specification);
 
         model.addAttribute("userList", userList);
