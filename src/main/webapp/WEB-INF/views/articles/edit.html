@@ -9,9 +9,9 @@
 
 <form action="#" th:action="@{/articles/{id}(id=${article.articleId})}" th:object="${article}" th:method="PATCH">
     <input type="text" th:field="*{title}" placeholder="Title">
-    <input type="text" th:field="*{text}" placeholder="text">
-    <input type="text" th:field="*{lastName}" placeholder="Last Name">
-    <input type="date" th:field="*{dateOfBirth}" placeholder="Birth day">
+    <input type="text" th:field="*{text}" placeholder="Text">
+    <input type="text" th:field="*{image}" placeholder="">
+    <input type="date" th:field="*{hidden}" placeholder="Birth day">
     <button type="submit">Update</button>
 </form>
 <hr>

@@ -1,5 +1,8 @@
 package com.reddot.config;
 
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -14,7 +17,7 @@ public class AppConfigDispatcherServletInitializer extends AbstractAnnotationCon
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {AppConfig.class};
+        return new Class[] {AppConfig.class, AppJpaConfig.class, WebSecurityConfig.class};
     }
 
     @Override
@@ -26,6 +29,12 @@ public class AppConfigDispatcherServletInitializer extends AbstractAnnotationCon
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
         registerHiddenFieldFilter(servletContext);
+        registerDelegatingFilter(servletContext);
+    }
+
+    private void registerDelegatingFilter(ServletContext context) {
+        context.addFilter("securityFilter", new DelegatingFilterProxy("springSecurityFilterChain"))
+                .addMappingForUrlPatterns(null, false, "/*");
     }
 
     private void registerHiddenFieldFilter(ServletContext context) {

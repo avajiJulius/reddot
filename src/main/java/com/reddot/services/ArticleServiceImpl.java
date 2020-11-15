@@ -26,7 +26,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findAllNotHiddenArticles() {
-        return repository.findArticleByHiddenFalse();
+        return repository.findArticleByIsHiddenFalse();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void updateArticle(Long id, Article article) {
         Article a = repository.getOne(id);
-        a.setText(article.getText());
+        a.setContent(article.getContent());
         a.setTitle(article.getTitle());
         repository.save(a);
     }

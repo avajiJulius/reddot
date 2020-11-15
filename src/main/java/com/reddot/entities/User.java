@@ -1,15 +1,12 @@
 package com.reddot.entities;
 
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "usrs")
-public class User implements SearchWrapper{
+@Table(name = "users")
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,90 +15,100 @@ public class User implements SearchWrapper{
 
     @Column(name = "username")
     private String username;
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "avatar")
+    private String avatar;
     @Column(name = "status")
-    private String status;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+    @Column(name = "role")
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
     @Column(name = "activated")
     private boolean isActivated;
+    @Column(name = "created_date")
+    private LocalDate createdDate;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Article> articles;
 
-    public User(Long id, String username, String firstName, String lastName,
-                LocalDate dateOfBirth, String status, boolean isActivated) {
-        this.id = id;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.status = status;
-        this.isActivated = isActivated;
-    }
 
     public User() {
-
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public boolean isActivated() {
-        return isActivated;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStatus(String status) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isActivated() {
+        return isActivated;
     }
 
     public void setActivated(boolean activated) {
         isActivated = activated;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
     public List<Article> getArticles() {
@@ -110,10 +117,5 @@ public class User implements SearchWrapper{
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
-    }
-
-    @Override
-    public String getSearchParam() {
-        return username;
     }
 }

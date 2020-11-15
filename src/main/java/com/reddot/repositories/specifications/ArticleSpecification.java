@@ -11,7 +11,7 @@ public class ArticleSpecification {
 
     public static Specification<Article> hiddenContains(boolean flag) {
         return (Specification<Article>)(root, query, builder) ->
-                builder.equal(root.get("hidden"), flag);
+                builder.equal(root.get("isHidden"), flag);
     }
 
 }

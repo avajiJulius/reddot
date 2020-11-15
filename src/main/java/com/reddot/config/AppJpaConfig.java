@@ -67,7 +67,6 @@ public class AppJpaConfig {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", getProperty("hibernate.hbm2ddl.auto"));
         properties.setProperty("hibernate.dialect", getProperty("hibernate.dialect"));
 
         return properties;

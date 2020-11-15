@@ -7,12 +7,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, Long>, JpaSpecificationExecutor<User> {
+    Optional<User> findByUsername(String username);
     List<User> findByIsActivatedTrue();
-    @Deprecated
-    @Query("SELECT u FROM User u WHERE CONCAT(u.username, ' ' , u.firstName, ' ' , u.lastName) LIKE %?1%")
-    List<User> search(String keyword);
 }
