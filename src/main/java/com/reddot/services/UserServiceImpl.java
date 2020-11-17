@@ -65,13 +65,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(Long id,User user) {
-//        User result = repository.findById(id)
-//                .orElseThrow(() -> new UserNotFoundException("User not found by ID " + id));
-//        result.setUsername(user.getUsername());
-//        result.setFirstName(user.getFirstName());
-//        result.setLastName(user.getLastName());
-//        result.setDateOfBirth(user.getDateOfBirth());
-//        repository.save(user);
+        User result = repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found by ID " + id));
+        result.setUsername(user.getUsername());
+        repository.save(user);
     }
 
 

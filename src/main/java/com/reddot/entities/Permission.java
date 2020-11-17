@@ -1,8 +1,8 @@
 package com.reddot.entities;
 
 public enum Permission {
-    USER_READ("user:read"),
-    USER_WRITE("user:write");
+    USER_USER("user:user"),
+    USER_ADMIN("user:admin");
 
     private final String permission;
 

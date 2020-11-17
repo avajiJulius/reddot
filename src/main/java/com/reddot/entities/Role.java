@@ -8,9 +8,8 @@ import java.util.stream.Collectors;
 import static com.reddot.entities.Permission.*;
 
 public enum Role {
-    USER(Set.of(USER_READ)),
-    MANAGER(Set.of(USER_WRITE, USER_READ)),
-    ADMIN(Set.of(USER_WRITE, USER_READ));
+    USER(Set.of(USER_USER)),
+    ADMIN(Set.of(USER_USER, USER_ADMIN));
 
     private final Set<Permission> permissions;
 
