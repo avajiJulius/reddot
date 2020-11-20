@@ -1,5 +1,7 @@
 package com.reddot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,8 +35,8 @@ public class User{
     private LocalDate createdDate;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Article> articles;
-
 
     public User() {
     }
