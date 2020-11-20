@@ -1,47 +1,24 @@
-package com.reddot.entities;
+package com.reddot.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.reddot.entities.Role;
+import com.reddot.entities.Status;
 
-import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
-@Entity
-@Table(name = "users")
-public class User{
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "username")
     private String username;
-    @Column(name = "email")
     private String email;
-    @Column(name = "password")
     private String password;
-    @Column(name = "avatar")
     private String avatar;
-    @Column(name = "status")
-    @Enumerated(value = EnumType.STRING)
     private Status status;
-    @Column(name = "role")
-    @Enumerated(value = EnumType.STRING)
     private Role role;
-    @Column(name = "activated")
     private boolean isActivated;
-    @Column(name = "created_date")
-    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate createdDate;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Article> articles;
 
-
-    public User() {
+    public UserDTO() {
     }
 
     public Long getId() {
@@ -108,20 +85,11 @@ public class User{
         isActivated = activated;
     }
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     public LocalDate getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public List<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
     }
 }

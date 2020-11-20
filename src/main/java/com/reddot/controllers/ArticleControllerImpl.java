@@ -1,51 +1,90 @@
 package com.reddot.controllers;
 
-import com.reddot.entities.Article;
-import com.reddot.services.ArticleService;
+import com.reddot.dto.ArticleDTO;
+import com.reddot.services.ArticleFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/articles")
-public class ArticleControllerImpl implements ArticleController{
+public class ArticleControllerImpl{
 
-    private final ArticleService articleService;
+    private final ArticleFacade articleFacade;
 
     @Autowired
-    public ArticleControllerImpl(ArticleService articleService) {
-        this.articleService = articleService;
+    public ArticleControllerImpl(ArticleFacade articleFacade) {
+        this.articleFacade = articleFacade;
     }
 
-    @Override
-    public List<Article> showArticles() {
+//
+//    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<ArticleDTO>> getArticles() {
+//        List<Article> articles = articleService.findAllArticles();
+//
+//        articles.forEach(a -> System.out.println(a));
+//        return new ResponseEntity<>(articles, HttpStatus.OK);
+//    }
 
-        return articleService.findAllArticles();
+//    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<Article> getArticles() {
+//        List<Article> articles = articleService.findAllArticles();
+//
+//        return articles;
+//    }
+//
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArticleDTO> getArticle(@PathVariable("id") Long id) {
+        if(id == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ArticleDTO article = articleFacade.getArticleById(id);
+
+        if(article == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @Override
-    public Article showArticle(Long id) {
-        return articleService.findArticleById(id);
-    }
-
-    @Override
-    public String createArticle(Article article) {
-        articleService.saveArticle(article);
-        return "Article successful create";
-    }
-
-    @Override
-    public String updateArticle(Long id, Article editArticle) {
-        articleService.updateArticle(id, editArticle);
-        return "Article successful update";
-    }
-
-    @Override
-    public String deleteArticle(Long id) {
-        articleService.deleteArticle(id);
-        return "Article successful delete";
-    }
+//    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasAuthority('user:user')")
+//    public ResponseEntity<Article> saveArticle(@RequestBody @Valid Article article) {
+//        HttpHeaders headers = new HttpHeaders();
+//
+//        if(article == null)
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//
+//        articleService.saveArticle(article);
+//
+//        return new ResponseEntity<>(article, headers, HttpStatus.CREATED);
+//    }
+//
+//    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasAuthority('user:user')")
+//    public ResponseEntity<Article> updateArticle(@PathVariable("id") Long id, @RequestBody @Valid Article editArticle)  {
+//        HttpHeaders headers = new HttpHeaders();
+//
+//        if(editArticle == null)
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//
+//        articleService.updateArticle(id, editArticle);
+//        return new ResponseEntity<>(editArticle, headers, HttpStatus.OK);
+//    }
+//
+//    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasAuthority('user:admin')")
+//    public ResponseEntity<Article> deleteArticle(@PathVariable("id") Long id) {
+//        Article article = articleService.findArticleById(id);
+//
+//        if(article == null)
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//
+//        articleService.deleteArticle(id);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 }

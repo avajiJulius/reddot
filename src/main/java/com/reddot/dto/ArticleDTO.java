@@ -1,49 +1,22 @@
-package com.reddot.entities;
+package com.reddot.dto;
 
 
+import com.reddot.entities.User;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "articles")
-public class Article {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class ArticleDTO {
+
     private Long articleId;
-
-    @Column(name = "title")
     private String title;
-    @Column(name = "content")
     private String content;
-    @Column(name = "upload")
-    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate uploadDate;
-    @Column(name = "edit")
-    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate editDate;
-    @Column(name = "hidden")
     private boolean isHidden;
-    @Column(name = "rate")
     private Integer rate;
+    private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User author;
-
-    public Article() {
-    }
-
-    public String getAuthorName() {
-        return this.author.getUsername();
+    public ArticleDTO() {
     }
 
     public Long getArticleId() {
@@ -70,7 +43,6 @@ public class Article {
         this.content = content;
     }
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     public LocalDate getUploadDate() {
         return uploadDate;
     }
@@ -79,7 +51,6 @@ public class Article {
         this.uploadDate = uploadDate;
     }
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     public LocalDate getEditDate() {
         return editDate;
     }
@@ -104,11 +75,12 @@ public class Article {
         this.rate = rate;
     }
 
-    public User getAuthor() {
-        return author;
+    public User getUser() {
+        return user;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
+

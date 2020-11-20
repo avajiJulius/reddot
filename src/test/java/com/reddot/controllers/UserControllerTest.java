@@ -29,13 +29,13 @@ public class UserControllerTest {
     private List<User> userList;
     private UserControllerImpl controller;
     private MockMvc mockMvc;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        controller = new UserControllerImpl(userService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
+//
+//    @Before
+//    public void setUp() {
+//        MockitoAnnotations.openMocks(this);
+//        controller = new UserControllerImpl(userService);
+//        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+//    }
 
     @Test
     public void testMockMvc() throws Exception {

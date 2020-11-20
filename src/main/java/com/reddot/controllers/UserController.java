@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/users")
 public interface UserController {
 
     @GetMapping("/")
+    @ResponseBody
     List<User> showUsers();
 
-    @GetMapping("/{id}")
     User showUser(@PathVariable(name = "id") Long id);
 
     @GetMapping("/search")
