@@ -37,22 +37,8 @@ public class UserControllerTest {
     private Model model;
 
     private List<User> userList;
-    private UserController controller;
     private MockMvc mockMvc;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        controller = new UserController(userService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
-
-    @Test
-    public void testMockMvc() throws Exception {
-        mockMvc.perform(get("/users/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("users/home"));
-    }
 
 
 }

@@ -25,4 +25,6 @@ public interface UserService {
 
     void updateUser(Long id, User user);
 
+    User findByUsername(String username);
+
 }
