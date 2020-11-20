@@ -27,7 +27,7 @@ public class UserRestController {
     }
 
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('user:write')")
     public ResponseEntity<List<User>> getUsers() {
 
@@ -50,7 +50,7 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> saveUser(@RequestBody @Valid User user) {
         HttpHeaders headers = new HttpHeaders();
 
@@ -79,7 +79,7 @@ public class UserRestController {
 //        return "users/users";
 //    }
 
-    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('user:user')")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id,
                                               @RequestBody @Valid User user)  {

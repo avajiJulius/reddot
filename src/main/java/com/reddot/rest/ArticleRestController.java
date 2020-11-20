@@ -24,7 +24,7 @@ public class ArticleRestController {
         this.articleService = articleService;
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Article>> getArticles() {
         List<Article> articles = articleService.findAllArticles();
 
@@ -44,7 +44,7 @@ public class ArticleRestController {
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('user:user')")
     public ResponseEntity<Article> saveArticle(@RequestBody @Valid Article article) {
         HttpHeaders headers = new HttpHeaders();
@@ -57,7 +57,7 @@ public class ArticleRestController {
         return new ResponseEntity<>(article, headers, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('user:user')")
     public ResponseEntity<Article> updateArticle(@PathVariable("id") Long id,
                                                  @RequestBody @Valid Article editArticle)  {
