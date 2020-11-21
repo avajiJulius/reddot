@@ -18,7 +18,7 @@ takes place through [ArticleRepository](src/main/java/com/reddot/repositories/Ar
 and [UserRepository](src/main/java/com/reddot/repositories/UserRepository.java). This class have @Repository
 Spring Data annotation.
 
-####Business logic
+#### Business logic
 
 In folder 'services' locate interfaces [IUserService](src/main/java/com/reddot/services/IUserService.java) 
 and [IArticleService](src/main/java/com/reddot/services/IArticleService.java). Those interfaces are implemented through 
