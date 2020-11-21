@@ -1,4 +1,4 @@
-package com.reddot.entities;
+package com.reddot.model.enums;
 
 public enum Permission {
     USER_READ("user:read"),

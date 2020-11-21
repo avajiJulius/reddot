@@ -1,6 +1,6 @@
 package com.reddot.config;
 
-import com.reddot.services.UserService;
+import com.reddot.services.IUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -13,8 +13,8 @@ import static org.mockito.Mockito.mock;
 public class TestConfig {
 
     @Bean
-    public UserService userService() {
-        return mock(UserService.class);
+    public IUserService userService() {
+        return mock(IUserService.class);
     }
 
     @Bean

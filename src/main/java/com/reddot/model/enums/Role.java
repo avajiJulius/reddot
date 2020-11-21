@@ -1,11 +1,11 @@
-package com.reddot.entities;
+package com.reddot.model.enums;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.reddot.entities.Permission.*;
+import static com.reddot.model.enums.Permission.*;
 
 public enum Role {
     USER(Set.of(USER_READ)),

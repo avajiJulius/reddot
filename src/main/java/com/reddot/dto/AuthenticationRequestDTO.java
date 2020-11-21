@@ -1,7 +1,9 @@
 package com.reddot.dto;
 
 
-public class AuthenticationRequestDTO {
+import java.io.Serializable;
+
+public class AuthenticationRequestDTO implements Serializable {
 
     private String username;
     private String password;

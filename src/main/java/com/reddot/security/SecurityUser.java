@@ -1,7 +1,7 @@
 package com.reddot.security;
 
 
-import com.reddot.entities.User;
+import com.reddot.model.entities.User;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

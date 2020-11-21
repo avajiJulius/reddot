@@ -1,6 +1,6 @@
 package com.reddot.repositories.specifications;
 
-import com.reddot.entities.User;
+import com.reddot.model.entities.User;
 import org.springframework.data.jpa.domain.Specification;
 
 

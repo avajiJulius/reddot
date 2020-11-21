@@ -1,9 +1,9 @@
-package com.reddot.rest;
+package com.reddot.controllers;
 
 import com.reddot.dto.AuthenticationRequestDTO;
-import com.reddot.entities.User;
-import com.reddot.security.JwtTokenProvider;
-import com.reddot.services.UserService;
+import com.reddot.model.entities.User;
+import com.reddot.security.jwt.JwtTokenProvider;
+import com.reddot.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,13 +25,13 @@ import java.util.Map;
 public class AuthRestController {
 
     private final AuthenticationManager authenticationManager;
-    private UserService userService;
+    private IUserService IUserService;
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public AuthRestController(AuthenticationManager authenticationManager, UserService userService, JwtTokenProvider jwtTokenProvider) {
+    public AuthRestController(AuthenticationManager authenticationManager, IUserService IUserService, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
-        this.userService = userService;
+        this.IUserService = IUserService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -40,7 +40,7 @@ public class AuthRestController {
         try {
             String username = request.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,request.getPassword()));
-            User user = userService.findByUsername(username);
+            User user = IUserService.findByUsername(username);
             String token = jwtTokenProvider.createToken(username, user.getRole().name());
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);

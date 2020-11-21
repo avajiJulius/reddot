@@ -1,4 +1,4 @@
-package com.reddot.security;
+package com.reddot.security.jwt;
 
 import com.reddot.exceprions.JwtAuthenticationException;
 import io.jsonwebtoken.*;

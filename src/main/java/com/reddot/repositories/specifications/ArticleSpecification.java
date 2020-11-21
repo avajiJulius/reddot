@@ -1,7 +1,6 @@
 package com.reddot.repositories.specifications;
 
-import com.reddot.entities.Article;
-import com.reddot.entities.User;
+import com.reddot.model.entities.Article;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ArticleSpecification {

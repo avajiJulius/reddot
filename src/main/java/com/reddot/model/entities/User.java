@@ -1,6 +1,8 @@
-package com.reddot.entities;
+package com.reddot.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.reddot.model.enums.Role;
+import com.reddot.model.enums.Status;
 
 import javax.persistence.*;
 import java.time.LocalDate;

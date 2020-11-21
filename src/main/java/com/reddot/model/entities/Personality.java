@@ -1,9 +1,4 @@
-package com.reddot.entities;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
-import java.time.LocalDate;
+package com.reddot.model.entities;
 
 
 public class Personality {

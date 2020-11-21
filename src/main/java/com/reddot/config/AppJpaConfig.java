@@ -43,7 +43,7 @@ public class AppJpaConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.reddot.entities" });
+        em.setPackagesToScan(new String[] { "com.reddot.model.entities" });
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -88,7 +88,7 @@ public class AppJpaConfig {
 //    public LocalSessionFactoryBean sessionFactory() {
 //        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 //        sessionFactory.setDataSource(dataSource());
-//        sessionFactory.setPackagesToScan("com.reddot.entities");
+//        sessionFactory.setPackagesToScan("com.reddot.model.entities");
 //        sessionFactory.setHibernateProperties(additionalProperties());
 //        return sessionFactory;
 //    }

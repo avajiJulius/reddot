@@ -1,8 +1,7 @@
 package com.reddot.repositories;
 
-import com.reddot.entities.User;
+import com.reddot.model.entities.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

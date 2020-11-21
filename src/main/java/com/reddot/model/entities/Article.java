@@ -1,8 +1,6 @@
-package com.reddot.entities;
+package com.reddot.model.entities;
 
 
-
-import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;

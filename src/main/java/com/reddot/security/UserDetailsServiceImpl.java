@@ -1,6 +1,6 @@
 package com.reddot.security;
 
-import com.reddot.entities.User;
+import com.reddot.model.entities.User;
 import com.reddot.exceprions.UserNotFoundException;
 import com.reddot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
