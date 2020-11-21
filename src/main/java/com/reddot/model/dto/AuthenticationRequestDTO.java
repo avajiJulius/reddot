@@ -1,4 +1,4 @@
-package com.reddot.dto;
+package com.reddot.model.dto;
 
 
 import java.io.Serializable;

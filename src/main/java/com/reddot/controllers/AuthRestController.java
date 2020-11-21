@@ -1,9 +1,13 @@
 package com.reddot.controllers;
 
-import com.reddot.dto.AuthenticationRequestDTO;
+import com.reddot.model.dto.AuthenticationRequestDTO;
 import com.reddot.model.entities.User;
 import com.reddot.security.jwt.JwtTokenProvider;
 import com.reddot.services.IUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/auth")
+@Api(value = "/auth", tags = "Authentication Controller")
 public class AuthRestController {
 
     private final AuthenticationManager authenticationManager;
@@ -36,6 +43,15 @@ public class AuthRestController {
     }
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(
+            value = "Login using username and password",
+            httpMethod = "POST",
+            produces = "application/json"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 403, message = "Invalid email or password")
+    })
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
             String username = request.getUsername();
