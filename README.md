@@ -3,7 +3,7 @@
 This is a REST API on Java using Spring MVC, Spring Security, 
 Spring Data, Hibernate, PostgreSQL. For Controller description using Swagger UI.
 
-##Functionality
+## Functionality
 
 Social news website where User can create account, public and private post article, subscribe to users,
 find articles by tag and rate the articles of another users.
@@ -11,7 +11,7 @@ Administrator can ban or delete users, delete articles.
 
 ### Project Structure
 
-####Database
+#### Database
 
 Have one postgresql database with articles and users tables. Database interaction 
 takes place through [ArticleRepository](src/main/java/com/reddot/repositories/ArticleRepository.java) 
@@ -25,7 +25,7 @@ and [IArticleService](src/main/java/com/reddot/services/IArticleService.java). T
 [UserService](src/main/java/com/reddot/services/UserService.java) and [ArticleService](src/main/java/com/reddot/services/ArticleService.java) classes.
 All documentation about the work of this layout in interfaces.
 
-####Controllers
+#### Controllers
 
 Description about [ArticleRestController](src/main/java/com/reddot/controllers/ArticleRestController.java),
  [UserRestController](src/main/java/com/reddot/controllers/UserRestController.java) and 
