@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
-@Api(value = "/auth", tags = "Authentication Controller")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthRestController {
 
@@ -41,15 +41,6 @@ public class AuthRestController {
     }
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(
-            value = "Login using username and password",
-            httpMethod = "POST",
-            produces = "application/json"
-    )
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 403, message = "Invalid email or password")
-    })
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
             String username = request.getUsername();
@@ -72,4 +63,10 @@ public class AuthRestController {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
     }
+
+    @PostMapping("")
+    public ResponseEntity<User> signUp(@RequestBody @Valid User user) {
+        return UserService.createUser(user);
+    }
+
 }
