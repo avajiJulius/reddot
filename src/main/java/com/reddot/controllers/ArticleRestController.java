@@ -1,15 +1,13 @@
 package com.reddot.controllers;
 
+import com.reddot.model.dto.ArticleDTO;
 import com.reddot.model.entities.Article;
-import com.reddot.model.entities.User;
-import com.reddot.services.IArticleService;
+import com.reddot.services.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,13 +19,14 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_VALUE)
 @Api(value = "/articles", tags = "Articles")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ArticleRestController {
 
-    private final IArticleService IArticleService;
+    private final ArticleService ArticleService;
 
     @Autowired
-    public ArticleRestController(IArticleService IArticleService) {
-        this.IArticleService = IArticleService;
+    public ArticleRestController(ArticleService IArticleService) {
+        this.ArticleService = IArticleService;
     }
 
     @GetMapping("")
@@ -41,8 +40,9 @@ public class ArticleRestController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK")
     })
-    public ResponseEntity<List<Article>> getArticles() {
-        return IArticleService.readAllArticles();
+    public ResponseEntity<List<ArticleDTO>> getArticles() {
+
+        return ArticleService.readAllArticles();
     }
 
     @GetMapping("/{id}")
@@ -59,7 +59,7 @@ public class ArticleRestController {
 
     })
     public ResponseEntity<Article> getArticle(@PathVariable("id") Long id) {
-        return IArticleService.readArticle(id);
+        return ArticleService.readArticle(id);
     }
 
     @PostMapping("")
@@ -77,7 +77,7 @@ public class ArticleRestController {
 
     })
     public ResponseEntity<Article> saveArticle(@RequestBody @Valid Article article) {
-        return IArticleService.creatArticle(article);
+        return ArticleService.creatArticle(article);
     }
 
     @PutMapping("/{id}")
@@ -95,7 +95,7 @@ public class ArticleRestController {
 
     })
     public ResponseEntity<Article> updateArticle(@PathVariable("id") long id ,@RequestBody @Valid Article update)  {
-        return IArticleService.updateArticle(id ,update);
+        return ArticleService.updateArticle(id ,update);
     }
 
     @DeleteMapping("/{id}")
@@ -107,11 +107,11 @@ public class ArticleRestController {
             response = Article.class
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Article successful deleted"),
+            @ApiResponse(code = 204, message = "Article successful deleted   "),
             @ApiResponse(code = 404, message = "Article by this id not found")
 
     })
     public ResponseEntity<Article> deleteArticle(@PathVariable("id") Long id) {
-        return IArticleService.deleteArticle(id);
+        return ArticleService.deleteArticle(id);
     }
 }

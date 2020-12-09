@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long>, JpaSpecificationExecutor<Article> {
-    List<Article> findArticleByIsHiddenFalse();
+    List<Article> findArticleByHiddenFalse();
 }

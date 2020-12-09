@@ -22,7 +22,7 @@ public class Article {
     @Column(name = "edit")
     private LocalDate editDate;
     @Column(name = "hidden")
-    private boolean isHidden;
+    private boolean hidden;
     @Column(name = "rate")
     private Integer rate;
 
@@ -33,9 +33,6 @@ public class Article {
     public Article() {
     }
 
-    public String getAuthorName() {
-        return this.author.getUsername();
-    }
 
     public Long getArticleId() {
         return articleId;
@@ -78,11 +75,11 @@ public class Article {
     }
 
     public boolean isHidden() {
-        return isHidden;
+        return hidden;
     }
 
     public void setHidden(boolean hidden) {
-        isHidden = hidden;
+        this.hidden = hidden;
     }
 
     public Integer getRate() {
